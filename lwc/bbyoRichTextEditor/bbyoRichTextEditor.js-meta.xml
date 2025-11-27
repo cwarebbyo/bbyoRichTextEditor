@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>BBYORichTextEditor</masterLabel>
+    <description>BBYO Rich Text Editor Flow Screen Component backed by external TinyMCE instance.</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="Contents"
+                      type="String"
+                      role="inputOutput"
+                      label="HTML Contents"
+                      description="Bind this to a Flow Text variable to send/receive HTML."/>
+            <property name="editorUrl"
+                      type="String"
+                      role="inputOnly"
+                      label="Editor URL"
+                      description="URL of the hosted TinyMCE editor page."
+                      default="https://www.bbyosummer.org/sfmc/dm-email-editor/index.html"/>
+            <property name="height"
+                      type="Integer"
+                      role="inputOnly"
+                      label="Frame Height (px)"
+                      description="Height of the iframe in pixels."
+                      default="600"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
