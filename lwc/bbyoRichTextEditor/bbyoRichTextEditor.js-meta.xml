@@ -9,6 +9,7 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
+            <flowSupport>true</flowSupport>
             <property name="Contents"
                       type="String"
                       label="HTML Contents"
