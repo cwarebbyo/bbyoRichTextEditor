@@ -9,7 +9,6 @@ export default class BbyoRichTextEditor extends LightningElement {
     @api height = 600;
     @api TriggerFinish;
     hasRequestedFinal = false;
-
     
     frameLoaded = false;
 
