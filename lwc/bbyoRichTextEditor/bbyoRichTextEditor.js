@@ -7,6 +7,9 @@ export default class BbyoRichTextEditor extends LightningElement {
     @api Contents = ''; // HTML passed to / from Flow
     @api editorUrl = 'https://www.bbyosummer.org/sfmc/dm-email-editor/index.html';
     @api height = 600;
+    @api TriggerFinish;
+    hasRequestedFinal = false;
+
     
     frameLoaded = false;
 
