@@ -9,16 +9,20 @@ export default class BbyoRichTextEditor extends LightningElement {
     @api height = 600;
 
     @api finish() {
-        // Called automatically when FLOW FINISH button is clicked
+        console.log("LWC finish() CALLED");
+
         const iframe = this.template.querySelector('iframe');
         if (iframe && iframe.contentWindow) {
+            console.log("Posting requestContent to iframe");
             iframe.contentWindow.postMessage(
                 { type: 'requestContent' },
                 ALLOWED_ORIGIN
             );
+        } else {
+            console.log("NO iframe.contentWindow FOUND");
         }
     }
-
+    
     frameLoaded = false;
 
     connectedCallback() {
