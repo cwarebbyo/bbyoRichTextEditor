@@ -8,6 +8,17 @@ export default class BbyoRichTextEditor extends LightningElement {
     @api editorUrl = 'https://www.bbyosummer.org/sfmc/dm-email-editor/index.html';
     @api height = 600;
 
+    @api finish() {
+        // Called automatically when FLOW FINISH button is clicked
+        const iframe = this.template.querySelector('iframe');
+        if (iframe && iframe.contentWindow) {
+            iframe.contentWindow.postMessage(
+                { type: 'requestContent' },
+                ALLOWED_ORIGIN
+            );
+        }
+    }
+
     frameLoaded = false;
 
     connectedCallback() {
