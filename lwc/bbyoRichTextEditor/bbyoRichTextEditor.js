@@ -4,24 +4,9 @@ import { FlowAttributeChangeEvent } from 'lightning/flowSupport';
 const ALLOWED_ORIGIN = 'https://www.bbyosummer.org';
 
 export default class BbyoRichTextEditor extends LightningElement {
-    @api Contents; // HTML passed to / from Flow
+    @api Contents = ''; // HTML passed to / from Flow
     @api editorUrl = 'https://www.bbyosummer.org/sfmc/dm-email-editor/index.html';
     @api height = 600;
-
-    @api finish() {
-        console.log("LWC finish() CALLED");
-
-        const iframe = this.template.querySelector('iframe');
-        if (iframe && iframe.contentWindow) {
-            console.log("Posting requestContent to iframe");
-            iframe.contentWindow.postMessage(
-                { type: 'requestContent' },
-                ALLOWED_ORIGIN
-            );
-        } else {
-            console.log("NO iframe.contentWindow FOUND");
-        }
-    }
     
     frameLoaded = false;
 
@@ -66,16 +51,42 @@ export default class BbyoRichTextEditor extends LightningElement {
     }
 
     handleMessage(event) {
-        if (event.origin !== ALLOWED_ORIGIN) {
+        const data = event.data;
+        // Only accept messages from your TinyMCE domain
+        if (!event.origin.includes('bbyosummer.org')) {
             return;
         }
-        const data = event.data;
+
         if (!data || typeof data !== 'object') {
             return;
         }
+
+        // ---------------------------------------
+        // LIVE UPDATE (fires on every change)
+        // ---------------------------------------
+        if (data.type === 'liveUpdate') {
+            this.Contents = data.value;
+
+            // Update hidden mirror field
+            const mirror = this.template.querySelector('#mirror');
+            if (mirror) {
+                mirror.value = this.Contents;
+            }
+
+            // DO NOT notify Flow yet
+            return;
+        }
+        // ---------------------------------------
+        // FINAL SAVE (TinyMCE "change" or requestContent)
+        // ---------------------------------------
         if (data.type === 'change' && typeof data.value === 'string') {
             this.Contents = data.value;
-            // Notify Flow that the value changed
+            // Update hidden mirror
+            const mirror = this.template.querySelector('#mirror');
+            if (mirror) {
+                mirror.value = this.Contents;
+            }
+            // Notify Flow ONLY NOW
             this.dispatchEvent(
                 new FlowAttributeChangeEvent('Contents', this.Contents)
             );
