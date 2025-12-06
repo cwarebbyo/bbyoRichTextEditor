@@ -23,6 +23,20 @@ export default class BbyoRichTextEditor extends LightningElement {
         }
     }
 
+    renderedCallback() {
+        if (this.TriggerFinish && !this.hasRequestedFinal) {
+            this.hasRequestedFinal = true;
+
+            const iframe = this.template.querySelector('iframe');
+            if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage(
+                    { type: 'requestContent' },
+                    ALLOWED_ORIGIN
+                );
+            }
+        }
+    }
+
     get frameStyle() {
         const h = this.height || 600;
         return `width:100%;height:${h}px;border:0;`;
