@@ -11,6 +11,7 @@
         <targetConfig targets="lightning__FlowScreen">
             <property name="Contents"
                       type="String"
+                      role="outputOnly"
                       label="HTML Contents"
                       description="Bind this to a Flow Text variable to send/receive HTML."/>
             <property name="editorUrl"
