@@ -24,6 +24,10 @@
                       label="Frame Height (px)"
                       description="Height of the iframe in pixels."
                       default="600"/>
+            <property name="TriggerFinish"
+                      type="Boolean"
+                      role="inputOnly"
+                      label="Trigger Final Save"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
