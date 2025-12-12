@@ -636,13 +636,20 @@ tinymce.init({
       margin: 0 auto !important;
       box-sizing: border-box;
     }
-    p, h1, h2, h3, h4, h5, h6, blockquote {
+    p, h1, h2, h3, h4, h5, h6 {
       padding-left: 10px !important;
       padding-right: 10px !important;
       margin: 0 0 16px 0 !important;
       box-sizing: border-box !important;
     }
-
+    blockquote {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+      margin: 10px 0 16px 10px !important;
+      box-sizing: border-box !important;
+      line-height: 150%;
+      font-size: 20px;
+    }
     li {
       padding-left: 10px !important;
       padding-right: 10px !important;
